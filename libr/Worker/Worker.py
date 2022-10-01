@@ -1,5 +1,6 @@
 from libr.Conteiner.Conteiner import Container
 from libr.Transport.Train import Train
+from libr.Transport.Ship import Ship
 from libr.Transport.Airplane import Plane
 from libr.Transport.base_transport import Transport
 
@@ -63,18 +64,32 @@ class Worker:
 
         elif len(line) == 5:
 
-            common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
-            unique_features = {value: line[index + 3] for index, value in enumerate(Plane.ALLOWED_Airplane_TYPES)
-                               }
-            description = {
-                "class_name": line[0],
-                "common_fields": common_fields,
-                "unique_features": unique_features
-            }
+            if line[0] == "Ship":
+                common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
+                unique_features = {value: line[index + 3] for index, value in enumerate(Ship.ALLOWED_Ship)
+                                   }
+                description = {
+                    "class_name": line[0],
+                    "common_fields": common_fields,
+                    "unique_features": unique_features
+                }
 
-            transport_class = globals()[description["class_name"]]
+                transport_class = globals()[description["class_name"]]
 
-            return transport_class.create_class_with_description(description)
+                return transport_class.create_class_with_description(description)
+            else:
+                common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
+                unique_features = {value: line[index + 3] for index, value in enumerate(Plane.ALLOWED_Airplane_TYPES)
+                                   }
+                description = {
+                    "class_name": line[0],
+                    "common_fields": common_fields,
+                    "unique_features": unique_features
+                }
+
+                transport_class = globals()[description["class_name"]]
+
+                return transport_class.create_class_with_description(description)
 
         else:
             return print("Incorrect number of parameters")

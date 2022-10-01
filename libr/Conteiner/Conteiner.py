@@ -52,10 +52,7 @@ class Container:
         return data
 
     def sort_by_transit_time(self):
-        """
-        This function sorts animals by length of name in ascending order
-        :return: None
-        """
+
         for _ in range(self.size):
             for i in range(self.size - 1):
                 x = self.data[i].distance / self.data[i].speed

@@ -1,8 +1,8 @@
 Transport count: 3. Transport:
 ---------------------------------------------------------------------------------------------
-1: Type: plane	|	Speed: 350	|	Distance: 350	|	Flying_range: 1	|	Capacity: 2	|	
+1: Type: plane	|	Speed: 200	|	Distance: 100	|	Flying_range: 1	|	Capacity: 2	|	
 ---------------------------------------------------------------------------------------------
-2: Type: train	|	Speed: 200	|	Distance: 400	|	Wagons: 2	|	
+2: Type: plane	|	Speed: 100	|	Distance: 100	|	Flying_range: 1	|	Capacity: 2	|	
 ---------------------------------------------------------------------------------------------
-3: Type: plane	|	Speed: 350	|	Distance: 350	|	Flying_range: 1	|	Capacity: 2	|	
+3: Type: train	|	Speed: 100	|	Distance: 100	|	Wagons: 2	|	
 ---------------------------------------------------------------------------------------------

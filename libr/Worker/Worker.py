@@ -14,6 +14,7 @@ class Worker:
 
     def run(self, file_in, file_out):
         self.__read_data_from_file(file_in)
+        self.__container.sort_by_transit_time()
         self.__write_data_to_file(file_out)
         self.__container.clear()
 
@@ -37,7 +38,6 @@ class Worker:
         :return: None
         """
         with open(file_out, "w") as file:
-            print(self.__container)
             file.write(str(self.__container))
 
     def __parse_line(self, line):

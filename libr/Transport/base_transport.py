@@ -3,7 +3,7 @@ class Transport:
         This is the base transport class
     """
     # Here must be listed all Transport default fields
-    DEFAULT_FIELDS = ["speed", "distance"]
+    DEFAULT_FIELDS = ["speed", "distance", "weight_now"]
 
     def __init__(self, **kwargs):
         """
@@ -15,6 +15,9 @@ class Transport:
         distance = kwargs.pop("distance")
         self.distance = int(distance)
 
+        weight_now = kwargs.pop("weight_now")
+        self.weight_now = int(weight_now)
+
     def __str__(self) -> str:
         """
         To string conversion
@@ -22,6 +25,7 @@ class Transport:
         return f"Type: {self.__class__.__name__.lower()}\t|\t" \
                f"Speed: {self.speed}\t|\t" \
                f"Distance: {self.distance}\t|\t" \
+               f"weight_now:{self.weight_now}\t|\t" \
                f"{self.unique_features()}"
 
     def unique_features(self) -> str:

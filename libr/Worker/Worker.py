@@ -14,8 +14,17 @@ class Worker:
 
     def run(self, file_in, file_out):
         self.__read_data_from_file(file_in)
+        self.print_filtered_data()
         self.__write_data_to_file(file_out)
         self.__container.clear()
+
+    def print_filtered_data(self):
+        for transport_class in [Plane]:
+            print(f"\nFilter by {transport_class.__name__}")
+            filtered_data = self.__container.filter_by(transport_class)
+
+            for transport in filtered_data:
+                print(transport)
 
     def __read_data_from_file(self, file_in: str):
         """
@@ -37,7 +46,6 @@ class Worker:
         :return: None
         """
         with open(file_out, "w") as file:
-            print(self.__container)
             file.write(str(self.__container))
 
     def __parse_line(self, line):

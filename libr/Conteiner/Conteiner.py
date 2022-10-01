@@ -51,3 +51,5 @@ class Container:
 
         return data
 
+    def filter_by(self, transport_class):
+        return [transport for transport in self.data if type(transport) is transport_class]

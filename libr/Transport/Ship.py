@@ -28,7 +28,7 @@ class Ship(Transport):
         :return: readable string with Train info
         """
         return f"Displacement: {self.displacement}\t|\t" \
-               f"Ship type: {', '.join(self.ship_type)}"
+               f"Ship type: {', '.join(self.ship_type)}\t|"
 
     @staticmethod
     def create_class_with_description(description):

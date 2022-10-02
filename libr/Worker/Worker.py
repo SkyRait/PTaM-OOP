@@ -88,7 +88,7 @@ class Worker:
                 return transport_class.create_class_with_description(description)
             else:
                 common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
-                unique_features = {value: line[index + 3] for index, value in enumerate(Plane.ALLOWED_Airplane_TYPES)
+                unique_features = {value: line[index + 4] for index, value in enumerate(Plane.ALLOWED_Airplane_TYPES)
                                    }
                 description = {
                     "class_name": line[0],

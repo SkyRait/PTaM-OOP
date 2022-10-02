@@ -56,6 +56,10 @@ class Container:
 
     def sort_by_transit_time(self):
 
+        if not self.size:
+            print("Empty container.")
+            return
+
         for _ in range(self.size):
             for i in range(self.size - 1):
                 x = self.data[i].distance / self.data[i].speed

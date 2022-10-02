@@ -40,4 +40,4 @@ class Transport:
         Raises error when his method not defined in child class
         :param description: Transport description
         """
-        raise ValueError("'create_class_with_description': unknown action")
+        raise ValueError("create_class_with_description: unknown action")

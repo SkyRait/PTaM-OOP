@@ -3,6 +3,7 @@ from libr.Transport.Train import Train
 from libr.Transport.Ship import Ship
 from libr.Transport.Airplane import Plane
 from libr.Transport.base_transport import Transport
+import sys
 
 
 class Worker:
@@ -34,12 +35,29 @@ class Worker:
         :param file_in: path to the file
         :return: None
         """
+        errors_log = []
+        errors_count = 0
+        try:
+            with open(file_in) as file:
+                lines = file.readlines()
 
-        with open(file_in) as file:
-            lines = file.readlines()
+                for index, line in enumerate(lines):
+                    try:
+                        self.__container.add(self.__parse_line(line))
+                    except (ValueError, NameError, KeyError, TypeError) as error:
+                        errors_log.append(f"line {index + 1}: {str(error)}")
+                        errors_count += 1
+                    except BufferError:
+                        print(f"! Warning: Container is full. Read only {self.__container.max_size} lines.")
+                        break
+            print(f"File read with {errors_count} errors.")
+            if errors_log:
+                print("Errors info:")
+                print("\n".join(errors_log))
 
-            for index, line in enumerate(lines):
-                self.__container.add(self.__parse_line(line))
+        except FileNotFoundError:
+            print("Incorrect command line: No such input file.")
+            sys.exit()
 
     def __write_data_to_file(self, file_out: str):
         """
@@ -57,23 +75,30 @@ class Worker:
         :return: transport
         """
         line = line.replace("\n", "").split(" ")
+        if line[0].lower() == "transport":
+            raise NameError("Class 'Transport' can be only inherited")
+        elif line[0].lower() not in ["plane", "train", "ship"]:
+            raise NameError(f"Class {line[0]} undefined")
 
         if len(line) == 5:
-            common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
+            if line[0].lower() == "train":
+                common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
 
-            description = {
-                "class_name": line[0],
-                "common_fields": common_fields,
-                "unique_features": line[-1]
-            }
+                description = {
+                    "class_name": line[0],
+                    "common_fields": common_fields,
+                    "unique_features": line[-1]
+                }
 
-            transport_class = globals()[description["class_name"]]
+                transport_class = globals()[description["class_name"]]
 
-            return transport_class.create_class_with_description(description)
+                return transport_class.create_class_with_description(description)
+            else:
+                raise ValueError("Incorrect number of parameters")
 
         elif len(line) == 6:
 
-            if line[0] == "Ship":
+            if line[0].lower() == "ship":
                 common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
                 unique_features = {value: line[index + 4] for index, value in enumerate(Ship.ALLOWED_Ship)
                                    }
@@ -86,7 +111,8 @@ class Worker:
                 transport_class = globals()[description["class_name"]]
 
                 return transport_class.create_class_with_description(description)
-            else:
+
+            elif line[0].lower() == "plane":
                 common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
                 unique_features = {value: line[index + 4] for index, value in enumerate(Plane.ALLOWED_Airplane_TYPES)
                                    }
@@ -99,6 +125,8 @@ class Worker:
                 transport_class = globals()[description["class_name"]]
 
                 return transport_class.create_class_with_description(description)
+            else:
+                raise ValueError("Incorrect number of parameters")
 
         else:
-            return print("Incorrect number of parameters")
+            raise ValueError("Incorrect number of parameters")

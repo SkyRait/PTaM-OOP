@@ -53,3 +53,15 @@ class Container:
 
     def filter_by(self, transport_class):
         return [transport for transport in self.data if type(transport) is transport_class]
+
+    def sort_by_transit_time(self):
+
+        for _ in range(self.size):
+            for i in range(self.size - 1):
+                x = self.data[i].distance / self.data[i].speed
+                y = self.data[i + 1].distance / self.data[i + 1].speed
+                if x > y:
+                    self.data[i], self.data[i + 1] = self.data[i + 1], self.data[i]
+
+        for i in range(self.size):
+            print(f"Transport:{i} transit time - {self.data[i].distance / self.data[i].speed}")

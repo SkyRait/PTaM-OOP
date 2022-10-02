@@ -16,6 +16,7 @@ class Worker:
     def run(self, file_in, file_out):
         self.__read_data_from_file(file_in)
         self.print_filtered_data()
+        self.__container.sort_by_transit_time()
         self.__write_data_to_file(file_out)
         self.__container.clear()
 

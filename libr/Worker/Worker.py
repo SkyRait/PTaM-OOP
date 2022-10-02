@@ -58,7 +58,7 @@ class Worker:
         """
         line = line.replace("\n", "").split(" ")
 
-        if len(line) == 4:
+        if len(line) == 5:
             common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
 
             description = {
@@ -71,11 +71,11 @@ class Worker:
 
             return transport_class.create_class_with_description(description)
 
-        elif len(line) == 5:
+        elif len(line) == 6:
 
             if line[0] == "Ship":
                 common_fields = {value: line[index + 1] for index, value in enumerate(Transport.DEFAULT_FIELDS)}
-                unique_features = {value: line[index + 3] for index, value in enumerate(Ship.ALLOWED_Ship)
+                unique_features = {value: line[index + 4] for index, value in enumerate(Ship.ALLOWED_Ship)
                                    }
                 description = {
                     "class_name": line[0],
